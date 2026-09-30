@@ -41,4 +41,4 @@ QVec2 = interp(QVec, 2);
 n = 1:length(IVec2);
 nT = Tl/2 * n.';
 
-xVec = IVec2.*cos(2*pi*fIF*nT) + QVec2.*sin(2*pi*fIF*nT);
+xVec = IVec2.*cos(2*pi*fIF*nT) - QVec2.*sin(2*pi*fIF*nT);
