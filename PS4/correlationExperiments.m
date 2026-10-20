@@ -13,12 +13,14 @@ delt = delChip*Tc;            % Sampling interval in seconds
 fs = 1/delt;                  % Sampling frequency in Hz
 Np = 2^nStages - 1;           % Period of the sequence in chips
 Nr = 20;                      % Number of repetitions of the sequence
+Nsp = floor(Np/delChip);      % Number of samples in a period
 Ns = round(Nr*Np/delChip);    % Number of samples of the sequence 
+
 % codeType:
 % rand ---- Sequence derived from Matlab randn function
 % pi ------ Sequence derived from the digits of pi
 % mseq ---- Maximal-length sequence with n = nStages
-codeType = 'rand';
+codeType = 'mseq';
 
 %% Generate codes
 X1 = zeros(Np,1);
@@ -62,6 +64,12 @@ X2os = oversampleSpreadingCode(X2,delChip,delOffset,Ns,Np);
 
 %% Compute crosscorrelation 
 [R12,iiVec] = ccorr(X1os,X2os);
+
+%% Compute the ratio of max autocorrelation to cross-correlation
+maxAC = max(R1/Ns);
+maxCC = max(R12/Ns);
+
+ratio = maxAC / maxCC % Pretty close to just saying 1/maxCC
 
 %% Compute power spectra
 % The scaling here ensures that sum(Si*delf) = 1 W, as expected, for i = 1, 2.
