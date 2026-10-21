@@ -50,4 +50,6 @@ end
 
 max_corr_lb = N * sqrt((M - 1) / (M*N - 1))
 
-max_corr_min = min(max(correlation, [], 2))
+max_corr_min = min(max(correlation, [], 2)) % Technically it's above but it's an order of magnitude too big seemingly
+
+%% Part (c)

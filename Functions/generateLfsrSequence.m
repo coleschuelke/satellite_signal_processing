@@ -25,7 +25,7 @@ m = 2^n - 1;
 lfsrSeq = zeros(1, m);
 
 % Create a connection mask
-c = zeros(1, n);
+c = zeros(n, 1);
 for idx=1:length(ciVec)
     c(ciVec(idx)) = 1;
 end
