@@ -1,0 +1,10 @@
+{
+  "version": "exportIQslice",
+  "rate": "250000000.000000",
+  "freq": "12075117197.166800",
+  "freq_IF": "12075117197.166800",
+  "freq_shift": "0.000000",
+  "type": "short",
+  "otwfmt": "sc16",
+  "unix_time": "17375117563"
+}

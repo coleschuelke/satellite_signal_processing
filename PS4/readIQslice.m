@@ -1,0 +1,28 @@
+function [y, meta] = readIQslice(binFile)
+% readIQslice : Read the IQ slice in this folder into complex samples.
+%
+%   [y, meta] = readIQslice            % the .bin beside this file
+%   [y, meta] = readIQslice('x.bin')
+%
+% Samples are interleaved int16 I,Q, little-endian. The .json named after the
+% .bin carries the rate and the sky centre frequency; meta returns them as Fs
+% and Fc.
+
+if nargin < 1
+    d = dir(fullfile(fileparts(mfilename('fullpath')), '*.bin'));
+    binFile = fullfile(d.folder, d.name);
+end
+
+[folder, stem] = fileparts(binFile);
+meta = readJSON(fullfile(folder, [stem '.json']));
+
+fid = fopen(binFile, 'r', 'l');
+x   = fread(fid, [2 Inf], 'int16=>double')';
+y   = complex(x(:,1), x(:,2));
+end
+
+
+function m = readJSON(f)
+s = jsondecode(fileread(f));
+m = struct('Fs', str2double(s.rate), 'Fc', str2double(s.freq));
+end
